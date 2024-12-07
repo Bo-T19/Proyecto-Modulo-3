@@ -37,6 +37,8 @@
   color: white;
   text-decoration: none;
 }
+
+
 /* General Styles */
 
 h2 {
@@ -89,14 +91,14 @@ button:hover {
   row-gap: 40px;
 }
 
-#company-logo {
-	height: 65px;
-}
-
 #nav-buttons {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
+}
+
+#company-logo{
+    border-radius: 20px;
 }
 
 #nav-buttons li {
