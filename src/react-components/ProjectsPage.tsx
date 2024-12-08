@@ -28,21 +28,34 @@ export function ProjectsPage(props: Props) {
     //Update the project cards
     const projectCards = projects.map((project) => {
         return (
-            <ProjectCard project={project} key = {project.id}/>
+            <ProjectCard project={project} key={project.id} />
         )
 
     })
 
     //Show or close the New Project Form
-    
-    
-        const handleCloseForm = () => {
-            setShowProjectForm(false);
-        };
-    
+    const handleCloseForm = () => {
+        setShowProjectForm(false);
+    };
+
+
+
     const onNewProjectClick = () => {
         setShowProjectForm(true);
     }
+
+
+    //Download the projects or upload
+    const onDownloadProjectsClick =() =>{
+        props.projectsManager.exportToJSON()
+    }
+
+
+    //Download the projects or upload
+    const onUploadProjectsClick =() =>{
+        props.projectsManager.importFromJSON()
+    }
+
 
     React.useEffect(() => {
         if (showProjectForm) {
@@ -65,10 +78,10 @@ export function ProjectsPage(props: Props) {
                         alignItems: "center",
                         gap: 20
                     }}>
-                    <button id="download">
+                    <button onClick={onDownloadProjectsClick} id="download">
                         <span className="material-icons-round">download</span>
                     </button>
-                    <button id="upload">
+                    <button   onClick={onUploadProjectsClick} id="upload">
                         <span className="material-icons-round">file_upload</span>
                     </button>
                     <button onClick={onNewProjectClick} id="new-project">
