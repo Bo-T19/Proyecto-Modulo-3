@@ -46,6 +46,16 @@ export function ProjectsPage(props: Props) {
         setShowProjectForm(true);
     }
 
+    React.useEffect(() => {
+        if (showProjectForm) {
+            const modal = document.getElementById("new-project-modal");
+            if (modal && modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        }
+    }, [showProjectForm]);
+
+
 
     //Download the projects or upload
     const onDownloadProjectsClick = () => {
@@ -59,14 +69,6 @@ export function ProjectsPage(props: Props) {
     }
 
 
-    React.useEffect(() => {
-        if (showProjectForm) {
-            const modal = document.getElementById("new-project-modal");
-            if (modal && modal instanceof HTMLDialogElement) {
-                modal.showModal();
-            }
-        }
-    }, [showProjectForm]);
 
 
     return (
