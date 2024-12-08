@@ -33,6 +33,9 @@ newProject(data: IProject, id?: string) {
     this.list.push(project)
     this.projectNames.push(project.name)
     this.onProjectCreated(project)
+
+    console.log(this.projectNames)
+    console.log(this.list)
     return project
 }
 
@@ -43,8 +46,8 @@ defaultProject()
     {
         name: "Default Project",
         description: "A temporary project",
-        status: "active",
-        userRole: "architect",
+        status: "Active",
+        userRole: "Architect",
         finishDate: new Date("2024-12-31"),
         cost: 15000,
         progress: 75,

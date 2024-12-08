@@ -1,6 +1,6 @@
 //Create the ProjectStatus and the UserRole types
-export type ProjectStatus = "pending" | "active" | "finished"
-export type UserRole = "architect" | "engineer" | "developer"
+export type ProjectStatus = "Pending" | "Active" | "Finished"
+export type UserRole = "Architect" | "Engineer" | "Developer"
 
 import { v4 as uuidv4 } from 'uuid'
 
@@ -42,7 +42,7 @@ export class Project implements IProject {
         for (const key in data) {
           this[key] = data[key]
         }
-        
+
         this.id = id
         this.initials = this.name[0].toUpperCase() + this.name[1].toUpperCase()
         this.color = this.colorArray[ Math.floor(Math.random() * 6)]

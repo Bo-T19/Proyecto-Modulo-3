@@ -2,6 +2,7 @@ import * as React from "react";
 import { IProject, Project, ProjectStatus, UserRole } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 import { ProjectCard } from "./ProjectCard"
+import { CreateProjectForm } from "./CreateProjectForm";
 
 
 interface Props {
@@ -10,10 +11,10 @@ interface Props {
 
 export function ProjectsPage(props: Props) {
 
-    //Create the ProjectMan
-
-    props.projectsManager.defaultProject()
+    //States
     const [projects, setProjects] = React.useState<Project[]>(props.projectsManager.list)
+    const [showProjectForm, setShowProjectForm] = React.useState(false);
+
 
     props.projectsManager.onProjectCreated = () => {
         setProjects([...props.projectsManager.list])
@@ -24,12 +25,34 @@ export function ProjectsPage(props: Props) {
     }
 
 
+    //Update the project cards
     const projectCards = projects.map((project) => {
         return (
-            <ProjectCard project={project} />
+            <ProjectCard project={project} key = {project.id}/>
         )
 
     })
+
+    //Show or close the New Project Form
+    
+    
+        const handleCloseForm = () => {
+            setShowProjectForm(false);
+        };
+    
+    const onNewProjectClick = () => {
+        setShowProjectForm(true);
+    }
+
+    React.useEffect(() => {
+        if (showProjectForm) {
+            const modal = document.getElementById("new-project-modal");
+            if (modal && modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        }
+    }, [showProjectForm]);
+
 
     return (
         <div className="page" id="projects-page" style={{ display: "flex" }}>
@@ -41,22 +64,20 @@ export function ProjectsPage(props: Props) {
                         flexDirection: "row",
                         alignItems: "center",
                         gap: 20
-                    }}
-                >
+                    }}>
                     <button id="download">
                         <span className="material-icons-round">download</span>
                     </button>
                     <button id="upload">
                         <span className="material-icons-round">file_upload</span>
                     </button>
-                    <button id="new-project">
+                    <button onClick={onNewProjectClick} id="new-project">
                         <span className="material-icons-round">add</span>New Project
                     </button>
                 </div>
             </header>
-            {
-                projects.length > 0 ? <div id="projects-list">{projectCards}</div> : <p> There are no projects to display</p>
-            }
+            {showProjectForm ? <CreateProjectForm projectsManager={props.projectsManager} onCloseForm={handleCloseForm} /> : <></>}
+            {projects.length > 0 ? <div id="projects-list">{projectCards}</div> : <p> There are no projects to display</p>}
 
         </div>
 
