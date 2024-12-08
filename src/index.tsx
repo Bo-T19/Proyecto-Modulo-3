@@ -1,10 +1,12 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom/client"
+import * as Router from "react-router-dom"
 
 //Components
 import { Sidebar } from "./react-components/Sidebar"
 import { ProjectsPage } from "./react-components/ProjectsPage"
 import { ProjectsManager } from "./class/ProjectsManager"
+import { ProjectDetailsPage } from "./react-components/ProjectDetailsPage"
 
 //Insert the components in the page
 const rootElement = document.getElementById("app") as HTMLDivElement
@@ -15,7 +17,12 @@ const projectsManager = new ProjectsManager()
 
 appRoot.render(
     <>
-        <Sidebar/>
-        <ProjectsPage  projectsManager={projectsManager}/>
+        <Router.BrowserRouter>
+            <Sidebar />
+            <Router.Routes>
+                <Router.Route path="/" element={<ProjectsPage projectsManager={projectsManager} />} />
+                <Router.Route path="/project/:id" element={<ProjectDetailsPage  projectsManager={projectsManager}/>} />
+            </Router.Routes>
+        </Router.BrowserRouter>
     </>
 )

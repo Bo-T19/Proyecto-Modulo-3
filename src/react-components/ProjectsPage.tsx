@@ -1,4 +1,6 @@
 import * as React from "react";
+import * as Router from "react-router-dom";
+
 import { IProject, Project, ProjectStatus, UserRole } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 import { ProjectCard } from "./ProjectCard"
@@ -28,9 +30,9 @@ export function ProjectsPage(props: Props) {
     //Update the project cards
     const projectCards = projects.map((project) => {
         return (
-            <ProjectCard project={project} key={project.id} />
-        )
-
+            <Router.Link to={`/project/${project.id}`} key={project.id} >
+                <ProjectCard project={project} />
+            </Router.Link>)
     })
 
     //Show or close the New Project Form
@@ -46,13 +48,13 @@ export function ProjectsPage(props: Props) {
 
 
     //Download the projects or upload
-    const onDownloadProjectsClick =() =>{
+    const onDownloadProjectsClick = () => {
         props.projectsManager.exportToJSON()
     }
 
 
     //Download the projects or upload
-    const onUploadProjectsClick =() =>{
+    const onUploadProjectsClick = () => {
         props.projectsManager.importFromJSON()
     }
 
@@ -81,7 +83,7 @@ export function ProjectsPage(props: Props) {
                     <button onClick={onDownloadProjectsClick} id="download">
                         <span className="material-icons-round">download</span>
                     </button>
-                    <button   onClick={onUploadProjectsClick} id="upload">
+                    <button onClick={onUploadProjectsClick} id="upload">
                         <span className="material-icons-round">file_upload</span>
                     </button>
                     <button onClick={onNewProjectClick} id="new-project">
