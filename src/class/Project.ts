@@ -5,6 +5,7 @@ export type UserRole = "Architect" | "Engineer" | "Developer"
 import { v4 as uuidv4 } from 'uuid'
 
 import { ToDo } from './ToDo'
+import { ToDosManager } from './ToDosManager'
 
 //Project interface
 export interface IProject {
@@ -20,6 +21,7 @@ export interface IProject {
 
 //Class
 export class Project implements IProject {
+
     //To satisfy IProject
     name: string
     description: string
@@ -29,6 +31,7 @@ export class Project implements IProject {
     cost: number = 0
     progress: number = 0
     toDoList: ToDo[] = []
+    toDosManager: ToDosManager
 
     //Class internals
     id: string
@@ -46,6 +49,9 @@ export class Project implements IProject {
         this.id = id
         this.initials = this.name[0].toUpperCase() + this.name[1].toUpperCase()
         this.color = this.colorArray[ Math.floor(Math.random() * 6)]
+        this.toDosManager = new ToDosManager(this.toDoList)  
+        //Oportunidad de mejora con el toDosManager
+
       }
 
 }

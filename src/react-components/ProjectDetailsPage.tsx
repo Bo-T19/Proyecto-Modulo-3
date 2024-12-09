@@ -2,10 +2,10 @@ import * as React from "react";
 import * as Router from "react-router-dom";
 
 import { ProjectsManager } from "../class/ProjectsManager";
-
 import { ProjectSummary } from "./ProjectSummary";
-import { Project } from "../class/Project";
 import { EditProjectForm } from "./EditProjectForm";
+import { ToDoList } from "./ToDoList";
+import { NewToDoForm } from "./NewToDoForm";
 
 interface Props {
     projectsManager: ProjectsManager
@@ -18,17 +18,20 @@ export function ProjectDetailsPage(props: Props) {
     const project = props.projectsManager.getProject(routeParams.id)
     if (!project) { return (<p> Project couldn't be fount</p>) }
 
-    //State for the EditProjectForm and methods for showing it
+    //State for the EditProjectForm and methods for showing it, also for NewToDoForm and EditToDoForm
     const [showEditProjectForm, setEditProjectForm] = React.useState(false);
+    const [showNewToDoForm, setNewToDoForm] = React.useState(false);
+    const [showEditToDoForm, setEditToDoForm] = React.useState(false);
+
+
 
     const handleCloseEditProjectForm = () => {
         setEditProjectForm(false);
-    };
+    }
 
 
     const onEditProjectClick = () => {
         setEditProjectForm(true);
-        console.log(showEditProjectForm)
     }
 
     React.useEffect(() => {
@@ -42,6 +45,38 @@ export function ProjectDetailsPage(props: Props) {
 
 
 
+
+
+    const handleCloseNewToDoForm = () => {
+        setNewToDoForm(false);
+        console.log(project)
+    };
+
+
+    const onNewToDoClick = () => {
+        setNewToDoForm(true);
+
+    }
+
+    React.useEffect(() => {
+        if (showNewToDoForm) {
+            const modal = document.getElementById("new-todo-modal");
+            if (modal && modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        }
+    }, [showNewToDoForm]);
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className="page" id="project-details" >
             <header>
@@ -52,56 +87,17 @@ export function ProjectDetailsPage(props: Props) {
                     </p>
                 </div>
             </header>
-            {showEditProjectForm? <EditProjectForm project={project} 
-                            projectsManager={props.projectsManager} 
-                            onCloseForm={handleCloseEditProjectForm} /> : <></>}
+            {showEditProjectForm ? <EditProjectForm project={project}
+                projectsManager={props.projectsManager}
+                onCloseForm={handleCloseEditProjectForm} /> : <></>}
+            {showNewToDoForm ? <NewToDoForm 
+                toDosManager={project.toDosManager}
+                onCloseForm={handleCloseNewToDoForm} /> : <></>}
 
             <div className="main-page-content">
                 <div style={{ display: "flex", flexDirection: "column", rowGap: 30 }}>
-                    <ProjectSummary project={project} projectsManager={props.projectsManager} onOpenForm={onEditProjectClick}/>
-                    <div className="dashboard-card" style={{ flexGrow: 1 }}>
-                        <div
-                            style={{
-                                padding: "20px 30px",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between"
-                            }}
-                        >
-                            <h4>To-Do</h4>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "end",
-                                    columnGap: 20
-                                }}
-                            >
-                                <div
-                                    style={{ display: "flex", alignItems: "center", columnGap: 10 }}
-                                >
-                                    <span className="material-icons-round">search</span>
-                                    <input
-                                        type="text"
-                                        placeholder="Search To-Do's by name"
-                                        style={{ width: "100%" }}
-                                    />
-                                </div>
-                                <span id="add-todo" className="material-icons-round">
-                                    add
-                                </span>
-                            </div>
-                        </div>
-                        <div
-                            id="todo-list"
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                padding: "10px 30px",
-                                rowGap: 20
-                            }}
-                        ></div>
-                    </div>
+                    <ProjectSummary project={project} projectsManager={props.projectsManager} onOpenForm={onEditProjectClick} />
+                    <ToDoList project={project} onOpenForm={onNewToDoClick} />
                 </div>
                 <div
                     id="viewer-container"

@@ -1,5 +1,4 @@
 import { IProject, Project, ProjectStatus, UserRole } from "./Project"
-import { ToDo } from './ToDo'
 
 //Class
 export class ProjectsManager {
