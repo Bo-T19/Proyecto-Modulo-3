@@ -25,17 +25,30 @@ export class ToDosManager {
     }
 
 
-    getTaskByDescription(taskDescription: string) {
+    getTaskById(taskId: string) {
 
         const task = this.toDosList.find((task) => {
-            return task.description === taskDescription
+            return task.id === taskId
         })
 
         return task
     }
 
-    editTaskStatus(taskDescription: string, newStatus: TaskStatus) {
-        this.getTaskByDescription(taskDescription)!.status = newStatus
+    editTask(taskId: string, data: IToDo) {
+
+
+        const task = this.getTaskById(taskId)!
+
+        if (data.date.toDateString() == "Invalid Date") {
+            data.date = new Date(2024, 1, 1)
+        }
+
+        for (const key in data) {
+            if (task.hasOwnProperty(key) && data[key]) {
+                task[key] = data[key];
+            }
+        }
+        task.setColor()
         this.onToDoEdited()
     
     }

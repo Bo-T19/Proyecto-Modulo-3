@@ -6,6 +6,7 @@ import { ProjectSummary } from "./ProjectSummary";
 import { EditProjectForm } from "./EditProjectForm";
 import { ToDoList } from "./ToDoList";
 import { NewToDoForm } from "./NewToDoForm";
+import {EditToDoForm} from "./EditToDoForm"
 
 interface Props {
     projectsManager: ProjectsManager
@@ -22,9 +23,10 @@ export function ProjectDetailsPage(props: Props) {
     const [showEditProjectForm, setEditProjectForm] = React.useState(false);
     const [showNewToDoForm, setNewToDoForm] = React.useState(false);
     const [showEditToDoForm, setEditToDoForm] = React.useState(false);
+    const [activeTaskId, setActiveTaskId] = React.useState<string>("")
 
 
-
+    //EditProjectForm
     const handleCloseEditProjectForm = () => {
         setEditProjectForm(false);
     }
@@ -46,7 +48,7 @@ export function ProjectDetailsPage(props: Props) {
 
 
 
-
+    //NewToDoForm
     const handleCloseNewToDoForm = () => {
         setNewToDoForm(false);
         console.log(project)
@@ -69,13 +71,31 @@ export function ProjectDetailsPage(props: Props) {
 
 
 
+    //EditToDoForm
+    const handleCloseEditToDoForm = () => {
+        setEditToDoForm(false);
+    };
 
 
+    const onEditToDoClick = () => {
+        setEditToDoForm(true);
 
+    }
 
+    React.useEffect(() => {
+        if (showEditToDoForm) {
+            const modal = document.getElementById("edit-todo-modal");
+            if (modal && modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        }
+    }, [showEditToDoForm]);
 
+    //Task Id 
 
-
+    const setId = (id: string) => {
+        setActiveTaskId(id)
+    }
 
     return (
         <div className="page" id="project-details" >
@@ -90,14 +110,18 @@ export function ProjectDetailsPage(props: Props) {
             {showEditProjectForm ? <EditProjectForm project={project}
                 projectsManager={props.projectsManager}
                 onCloseForm={handleCloseEditProjectForm} /> : <></>}
-            {showNewToDoForm ? <NewToDoForm 
+            {showNewToDoForm ? <NewToDoForm
                 toDosManager={project.toDosManager}
                 onCloseForm={handleCloseNewToDoForm} /> : <></>}
+            {showEditToDoForm ? < EditToDoForm
+                toDosManager={project.toDosManager}
+                onCloseForm={handleCloseEditToDoForm} 
+                id ={activeTaskId}/> : <></>}
 
             <div className="main-page-content">
                 <div style={{ display: "flex", flexDirection: "column", rowGap: 30 }}>
                     <ProjectSummary project={project} projectsManager={props.projectsManager} onOpenForm={onEditProjectClick} />
-                    <ToDoList project={project} onOpenForm={onNewToDoClick} />
+                    <ToDoList project={project} onOpenNewForm={onNewToDoClick} onOpenEditForm={onEditToDoClick} sendId={setId} />
                 </div>
                 <div
                     id="viewer-container"

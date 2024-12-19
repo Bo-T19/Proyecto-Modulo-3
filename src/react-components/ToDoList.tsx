@@ -9,12 +9,15 @@ import { ToDosManager } from "../class/ToDosManager";
 
 interface Props {
     project: Project
-    onOpenForm: () => void;
+    onOpenNewForm: () => void;
+    onOpenEditForm: () => void;
+    sendId: (id: string) => void
 }
 
 export function ToDoList(props: Props) {
     //States
     const [toDosList, setToDosList] = React.useState<ToDo[]>(props.project.toDosManager.toDosList);
+    const [activeTaskId, setActiveTaskId] = React.useState<string>("")
 
     props.project.toDosManager.onToDoCreated = () => {
         setToDosList([...props.project.toDosManager.toDosList])
@@ -25,13 +28,18 @@ export function ToDoList(props: Props) {
         setToDosList([...props.project.toDosManager.toDosList])
     }
 
-
+    const handleIdFromItem = (id: string) =>
+    {
+        setActiveTaskId(id)
+        props.sendId(id)
+    }
+    
     // Update the todos list
 
     const toDoItems = toDosList.map((toDo) => {
         return (
 
-            <ToDoItem toDo={toDo} key={toDo.id}/>
+            <ToDoItem toDo={toDo} key={toDo.id} onOpenEditForm={props.onOpenEditForm} sendId={handleIdFromItem}/>
         )
     })
     return (
@@ -63,7 +71,7 @@ export function ToDoList(props: Props) {
                             style={{ width: "100%" }}
                         />
                     </div>
-                    <span id="add-todo" className="material-icons-round" onClick={props.onOpenForm}>
+                    <span id="add-todo" className="material-icons-round" onClick={props.onOpenNewForm}>
                         add
                     </span>
                 </div>

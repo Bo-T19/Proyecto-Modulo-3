@@ -49,7 +49,7 @@ export class Project implements IProject {
         this.initials = this.name[0].toUpperCase() + this.name[1].toUpperCase()
         this.color = this.colorArray[ Math.floor(Math.random() * 6)]
         this.toDosManager = new ToDosManager()  
-        //Oportunidad de mejora con el toDosManager
+
 
       }
 

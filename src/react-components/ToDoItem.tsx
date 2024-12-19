@@ -5,9 +5,18 @@ import { IToDo, ToDo } from "../class/ToDo";
 
 interface Props {
     toDo: ToDo
+    onOpenEditForm : () => void;
+    sendId: (id: string) => void;
 }
 
 export function ToDoItem(props: Props) {
+
+    const handleClick = () =>
+    {
+        props.sendId(props.toDo.id)
+        props.onOpenEditForm()
+    }
+
     return (
         <div
             style={{
@@ -16,8 +25,10 @@ export function ToDoItem(props: Props) {
                 alignItems: "center",
                 backgroundColor: props.toDo.color,
                 padding: "10px",
-                borderRadius: "10px"
+                borderRadius: "10px",
+                margin: "10px"
             }}
+            onClick={handleClick}
         >
             <div style={{ display: "flex", columnGap: 15, alignItems: "center"}}>
                 <span
