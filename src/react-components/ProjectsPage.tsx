@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
 
-import { IProject, Project, ProjectStatus, UserRole } from "../class/Project";
+import { Project} from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 import { ProjectCard } from "./ProjectCard"
 import { CreateProjectForm } from "./CreateProjectForm";

@@ -4,14 +4,11 @@ import { IToDo, ToDo, TaskStatus } from './ToDo'
 export class ToDosManager {
 
     //Class internals
-    toDosList: IToDo[]
+     toDosList: ToDo[] = []
 
     onToDoCreated = () => {}
     onToDoEdited = () => {}
 
-    constructor(toDosList: IToDo[]) {
-        this.toDosList = toDosList
-    }
 
     addToDo(data: IToDo) {
 

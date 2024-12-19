@@ -16,7 +16,6 @@ export interface IProject {
     finishDate: Date
     cost: number
     progress: number
-    toDoList: ToDo[]
 }
 
 //Class
@@ -30,12 +29,12 @@ export class Project implements IProject {
     finishDate: Date
     cost: number = 0
     progress: number = 0
-    toDoList: ToDo[] = []
-    toDosManager: ToDosManager
+    
 
     //Class internals
     id: string
     initials: string
+    toDosManager: ToDosManager
     color: string
     colorArray: string[] = ["#FF6F61", "#6A5ACD", "#FFB347", "#3498DB", "#27AE60", "#C0392B"]
     
@@ -49,7 +48,7 @@ export class Project implements IProject {
         this.id = id
         this.initials = this.name[0].toUpperCase() + this.name[1].toUpperCase()
         this.color = this.colorArray[ Math.floor(Math.random() * 6)]
-        this.toDosManager = new ToDosManager(this.toDoList)  
+        this.toDosManager = new ToDosManager()  
         //Oportunidad de mejora con el toDosManager
 
       }

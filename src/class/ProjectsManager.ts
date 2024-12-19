@@ -49,7 +49,7 @@ export class ProjectsManager {
             finishDate: new Date("2024-12-31"),
             cost: 15000,
             progress: 75,
-            toDoList: []
+           
         }
 
         this.newProject(defaultData)
@@ -127,7 +127,7 @@ export class ProjectsManager {
                             finishDate: new Date(project.finishDate),
                             cost: project.cost,
                             progress: project.progress,
-                            toDoList: project.toDoList
+  
                         }
 
                         this.editProject(this.getProjectByName(project.name)!, updateProjectData)
@@ -147,7 +147,7 @@ export class ProjectsManager {
                             finishDate: new Date(project.finishDate),
                             cost: project.cost,
                             progress: project.progress,
-                            toDoList: project.toDoList
+
                         }
                         this.newProject(newProjectData)
                     } catch (error) {

@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 //Create the taskStatus type
 export type TaskStatus = "Pending" | "Overdue" | "Finished"
 
@@ -19,11 +21,15 @@ export class ToDo {
     //Class internals
     toDoColorList: string[] = ["#008000", "#8B4513", "#FF0000"]
     color: string
+    id: string
 
     constructor(data: IToDo) {
         for (const key in data) {
             this[key] = data[key]
         }
+
+        this.id =uuidv4()
+        this.setColor()
     }
 
     setColor() {
