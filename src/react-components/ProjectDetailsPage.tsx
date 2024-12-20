@@ -7,6 +7,7 @@ import { EditProjectForm } from "./EditProjectForm";
 import { ToDoList } from "./ToDoList";
 import { NewToDoForm } from "./NewToDoForm";
 import {EditToDoForm} from "./EditToDoForm"
+import { ThreeViewer } from "./ThreeViewer";
 
 interface Props {
     projectsManager: ProjectsManager
@@ -128,6 +129,7 @@ export function ProjectDetailsPage(props: Props) {
                     style={{ minWidth: 0 }}
                     className="dashboard-card"
                 >
+                    <ThreeViewer />
                 </div>
             </div>
         </div>
