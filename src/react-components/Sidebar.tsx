@@ -3,7 +3,7 @@ import * as Router from "react-router-dom"
 
 export function Sidebar() {
     return (
-      <aside id="sidebar">
+      <aside id="sidebar" >
         <img id="company-logo" src="./assets/be-bop-tools-logo.jpg" alt="Be-bop Tools" />
         <ul id="nav-buttons">
             <li><span className="material-icons-round">people</span>Users</li>

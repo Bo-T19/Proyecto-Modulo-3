@@ -11,14 +11,15 @@ interface Props {
 
 export function ProjectSummary(props: Props) {
 
-    return (<div className="dashboard-card" style={{ padding: "30px 0" }}>
+    return (<div className="dashboard-card" style={{ padding: "30px 0" , height :"auto"}}>
         <div
             style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "0px 30px",
-                marginBottom: 30
+                marginBottom: 30,
+                
             }}
         >
             <p

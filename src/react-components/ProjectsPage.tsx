@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
 
-import { Project} from "../class/Project";
+import { Project } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 import { ProjectCard } from "./ProjectCard"
 import { CreateProjectForm } from "./CreateProjectForm";
-
+import { SearchBox } from "./SearchBox";
 
 interface Props {
     projectsManager: ProjectsManager
@@ -69,12 +69,23 @@ export function ProjectsPage(props: Props) {
     }
 
 
+    //For the searchbox
+    const onProjectSearch = (value: string) => {
+        const filteredProjects = props.projectsManager.list.filter((project) => {
+            return project.name.includes(value)
+        })
+        setProjects(filteredProjects)
+    }
 
 
     return (
         <div className="page" id="projects-page" style={{ display: "flex" }}>
             <header>
                 <h2>Projects</h2>
+
+                <SearchBox onChange={(value) => onProjectSearch(value)} typeOfSearchBox="project"/>
+
+
                 <div
                     style={{
                         display: "flex",
@@ -94,7 +105,7 @@ export function ProjectsPage(props: Props) {
                 </div>
             </header>
             {showProjectForm ? <CreateProjectForm projectsManager={props.projectsManager} onCloseForm={handleCloseForm} /> : <></>}
-            {projects.length > 0 ? <div id="projects-list">{projectCards}</div> : <p> There are no projects to display</p>}
+            {projects.length > 0 ? <div id="projects-list" style={{overflowY: "auto", height: "98vh"}}>{projectCards}</div> : <p> There are no projects to display</p>}
 
         </div>
 

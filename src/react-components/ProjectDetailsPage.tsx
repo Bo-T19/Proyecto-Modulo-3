@@ -6,7 +6,7 @@ import { ProjectSummary } from "./ProjectSummary";
 import { EditProjectForm } from "./EditProjectForm";
 import { ToDoList } from "./ToDoList";
 import { NewToDoForm } from "./NewToDoForm";
-import {EditToDoForm} from "./EditToDoForm"
+import { EditToDoForm } from "./EditToDoForm"
 import { ThreeViewer } from "./ThreeViewer";
 
 interface Props {
@@ -116,11 +116,11 @@ export function ProjectDetailsPage(props: Props) {
                 onCloseForm={handleCloseNewToDoForm} /> : <></>}
             {showEditToDoForm ? < EditToDoForm
                 toDosManager={project.toDosManager}
-                onCloseForm={handleCloseEditToDoForm} 
-                id ={activeTaskId}/> : <></>}
+                onCloseForm={handleCloseEditToDoForm}
+                id={activeTaskId} /> : <></>}
 
             <div className="main-page-content">
-                <div style={{ display: "flex", flexDirection: "column", rowGap: 30 }}>
+                <div style={{ display: "flex", flexDirection: "column", rowGap: 30, overflowY: "auto", height: "auto"}}>
                     <ProjectSummary project={project} projectsManager={props.projectsManager} onOpenForm={onEditProjectClick} />
                     <ToDoList project={project} onOpenNewForm={onNewToDoClick} onOpenEditForm={onEditToDoClick} sendId={setId} />
                 </div>

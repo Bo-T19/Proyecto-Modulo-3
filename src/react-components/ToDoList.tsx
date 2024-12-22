@@ -4,8 +4,7 @@ import * as React from "react";
 import { Project } from "../class/Project";
 import { ToDoItem } from "./ToDoItem";
 import { ToDo } from "../class/ToDo";
-import { ToDosManager } from "../class/ToDosManager";
-
+import { SearchBox } from "./SearchBox";
 
 interface Props {
     project: Project
@@ -28,22 +27,36 @@ export function ToDoList(props: Props) {
         setToDosList([...props.project.toDosManager.toDosList])
     }
 
-    const handleIdFromItem = (id: string) =>
-    {
+    const handleIdFromItem = (id: string) => {
         setActiveTaskId(id)
         props.sendId(id)
     }
-    
+
     // Update the todos list
 
     const toDoItems = toDosList.map((toDo) => {
         return (
 
-            <ToDoItem toDo={toDo} key={toDo.id} onOpenEditForm={props.onOpenEditForm} sendId={handleIdFromItem}/>
+            <ToDoItem toDo={toDo} key={toDo.id} onOpenEditForm={props.onOpenEditForm} sendId={handleIdFromItem} />
         )
     })
+
+
+    //For the searchbox
+    const onToDoSearch = (value: string) => {
+        const filteredProjects = props.project.toDosManager.toDosList.filter((toDo) => {
+            return toDo.description.includes(value)
+        })
+        setToDosList(filteredProjects)
+    }
+
+
     return (
-        <div className="dashboard-card" style={{ flexGrow: 1 }}>
+        <div className="dashboard-card"
+            style={{
+                flexGrow: 1,
+                height: "auto"
+            }}>
             <div
                 style={{
                     padding: "20px 30px",
@@ -65,10 +78,9 @@ export function ToDoList(props: Props) {
                         style={{ display: "flex", alignItems: "center", columnGap: 10 }}
                     >
                         <span className="material-icons-round">search</span>
-                        <input
-                            type="text"
-                            placeholder="Search To-Do's by name"
-                            style={{ width: "100%" }}
+                        <SearchBox
+                            onChange={(value) => onToDoSearch(value)}
+                            typeOfSearchBox="task"
                         />
                     </div>
                     <span id="add-todo" className="material-icons-round" onClick={props.onOpenNewForm}>
@@ -82,7 +94,9 @@ export function ToDoList(props: Props) {
                     display: "flex",
                     flexDirection: "column",
                     padding: "10px 30px",
-                    rowGap: 20
+                    rowGap: 20,
+                    overflowY: "auto",
+                    maxHeight: "calc(32vh - 20px)"
                 }}
             >
                 {props.project.toDosManager.toDosList.length > 0 ? <div id="todos-list">{toDoItems}</div> : <p> There are no tasks</p>}

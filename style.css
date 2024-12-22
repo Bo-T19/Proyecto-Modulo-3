@@ -31,6 +31,7 @@
   height: 100vh;
   background-color: var(--background);
   color: #fff;
+  overflow: hidden; 
 }
 
 #nav-buttons a{
@@ -89,6 +90,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   row-gap: 40px;
+
 }
 
 #nav-buttons {
@@ -118,15 +120,13 @@ button:hover {
 
 /* Content styles */
 
-#content {
-
-}
 
 header {
   padding: 30px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 2vh;
 }
 
 .project-card {
