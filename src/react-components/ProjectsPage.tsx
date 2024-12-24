@@ -79,11 +79,11 @@ export function ProjectsPage(props: Props) {
 
 
     return (
-        <div className="page" id="projects-page" style={{ display: "flex" }}>
+        <div className="page" id="projects-page" >
             <header>
                 <h2>Projects</h2>
 
-                <SearchBox onChange={(value) => onProjectSearch(value)} typeOfSearchBox="project"/>
+                <SearchBox onChange={(value) => onProjectSearch(value)} typeOfSearchBox="project" />
 
 
                 <div
@@ -92,6 +92,7 @@ export function ProjectsPage(props: Props) {
                         flexDirection: "row",
                         alignItems: "center",
                         gap: 20
+
                     }}>
                     <button onClick={onDownloadProjectsClick} id="download">
                         <span className="material-icons-round">download</span>
@@ -105,7 +106,14 @@ export function ProjectsPage(props: Props) {
                 </div>
             </header>
             {showProjectForm ? <CreateProjectForm projectsManager={props.projectsManager} onCloseForm={handleCloseForm} /> : <></>}
-            {projects.length > 0 ? <div id="projects-list" style={{overflowY: "auto", height: "98vh"}}>{projectCards}</div> : <p> There are no projects to display</p>}
+            {projects.length > 0 ? <div id="projects-list" style={{
+                flexGrow: 1,
+                overflowY: "auto",
+                padding: "20px 40px",
+                display: "grid",
+                gap: "30px",
+                gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
+            }}>{projectCards}</div> : <p> There are no projects to display</p>}
 
         </div>
 

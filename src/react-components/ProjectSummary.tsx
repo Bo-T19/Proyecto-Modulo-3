@@ -11,14 +11,14 @@ interface Props {
 
 export function ProjectSummary(props: Props) {
 
-    return (<div className="dashboard-card" style={{ padding: "30px 0" , height :"auto"}}>
+    return (<div className="dashboard-card" style={{ padding: "10px" , height :"auto"}}>
         <div
             style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "0px 30px",
-                marginBottom: 30,
+                padding: "10px 10px",
+                fontSize: "14px"
                 
             }}
         >
@@ -38,7 +38,7 @@ export function ProjectSummary(props: Props) {
                 <p style={{ width: "100%" }}>Edit</p>
             </button>
         </div>
-        <div style={{ padding: "0 30px" }}>
+        <div style={{ padding: "0 10px" }}>
             <div>
                 <h5 data-project-info="name">{props.project.name}</h5>
                 <p data-project-info="description">
@@ -49,7 +49,7 @@ export function ProjectSummary(props: Props) {
                 style={{
                     display: "flex",
                     columnGap: 30,
-                    padding: "30px 0px",
+                    padding: "10px 10px",
                     justifyContent: "space-between"
                 }}
             >

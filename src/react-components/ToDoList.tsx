@@ -55,7 +55,7 @@ export function ToDoList(props: Props) {
         <div className="dashboard-card"
             style={{
                 flexGrow: 1,
-                height: "auto"
+                overflowY: "auto",
             }}>
             <div
                 style={{
@@ -96,7 +96,7 @@ export function ToDoList(props: Props) {
                     padding: "10px 30px",
                     rowGap: 20,
                     overflowY: "auto",
-                    maxHeight: "calc(32vh - 20px)"
+                    height: "auto"
                 }}
             >
                 {props.project.toDosManager.toDosList.length > 0 ? <div id="todos-list">{toDoItems}</div> : <p> There are no tasks</p>}

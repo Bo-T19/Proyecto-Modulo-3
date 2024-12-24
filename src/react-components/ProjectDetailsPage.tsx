@@ -119,14 +119,14 @@ export function ProjectDetailsPage(props: Props) {
                 onCloseForm={handleCloseEditToDoForm}
                 id={activeTaskId} /> : <></>}
 
-            <div className="main-page-content">
-                <div style={{ display: "flex", flexDirection: "column", rowGap: 30, overflowY: "auto", height: "auto"}}>
+            <div className="main-page-content" style={{ height: "calc(100vh - 20px)", overflow: "hidden" }}>
+                <div style={{ display: "flex", flexDirection: "column", rowGap: 30, overflowY: "auto", height: "100%" }}>
                     <ProjectSummary project={project} projectsManager={props.projectsManager} onOpenForm={onEditProjectClick} />
                     <ToDoList project={project} onOpenNewForm={onNewToDoClick} onOpenEditForm={onEditToDoClick} sendId={setId} />
                 </div>
                 <div
                     id="viewer-container"
-                    style={{ minWidth: 0 }}
+                    style={{  flex: 1, overflow: "hidden" }}
                     className="dashboard-card"
                 >
                     <ThreeViewer />

@@ -26,7 +26,9 @@ export function ToDoItem(props: Props) {
                 backgroundColor: props.toDo.color,
                 padding: "10px",
                 borderRadius: "10px",
-                margin: "10px"
+                margin: "10px",
+                height: "30px",
+                fontSize: "small"
             }}
             onClick={handleClick}
         >
