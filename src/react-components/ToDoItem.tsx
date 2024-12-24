@@ -16,7 +16,8 @@ export function ToDoItem(props: Props) {
         props.sendId(props.toDo.id)
         props.onOpenEditForm()
     }
-
+    //Convert the date to a Date object if necessary
+    const date = new Date(props.toDo.date);
     return (
         <div
             style={{
@@ -44,7 +45,7 @@ export function ToDoItem(props: Props) {
                 </p>
             </div>
             <p style={{ textWrap: "nowrap", marginLeft: 10 }}>
-                {props.toDo.date.toLocaleDateString("es-ES")}
+                {date.toLocaleDateString("es-ES")}
             </p>
         </div>
 

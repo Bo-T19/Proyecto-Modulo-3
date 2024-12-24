@@ -28,13 +28,11 @@ export class ProjectsManager {
         }
 
         const project = new Project(data, id)
-
+        project.toDosManager.toDosList = data.toDosManager.toDosList
         this.list.push(project)
         this.projectNames.push(project.name)
         this.onProjectCreated(project)
 
-        console.log(this.projectNames)
-        console.log(this.list)
         return project
     }
 
@@ -49,6 +47,7 @@ export class ProjectsManager {
             finishDate: new Date("2024-12-31"),
             cost: 15000,
             progress: 75,
+            toDosManager: {toDosList:[]}
            
         }
 
@@ -66,6 +65,16 @@ export class ProjectsManager {
     //Edit project data
     editProject(project: Project, completeData: IProject) {
 
+        completeData.toDosManager.toDosList = [
+            ...project.toDosManager.toDosList,
+            ...completeData.toDosManager.toDosList
+        ];
+        
+        //Remove Duplicates based on the Id
+        completeData.toDosManager.toDosList = Array.from(
+            new Map(completeData.toDosManager.toDosList.map(obj => [obj.id, obj])).values()
+        );
+ 
         const projectNames = this.list.map((project) => {
             return project.name
         })
@@ -88,6 +97,8 @@ export class ProjectsManager {
                 project[key] = completeData[key];
             }
         }
+
+        
     }
 
     //Import a project from JSON or export a project from JSON
@@ -127,7 +138,8 @@ export class ProjectsManager {
                             finishDate: new Date(project.finishDate),
                             cost: project.cost,
                             progress: project.progress,
-  
+                            toDosManager : project.toDosManager
+                            
                         }
 
                         this.editProject(this.getProjectByName(project.name)!, updateProjectData)
@@ -147,7 +159,8 @@ export class ProjectsManager {
                             finishDate: new Date(project.finishDate),
                             cost: project.cost,
                             progress: project.progress,
-
+                            toDosManager: project.toDosManager
+                            
                         }
                         this.newProject(newProjectData)
                     } catch (error) {

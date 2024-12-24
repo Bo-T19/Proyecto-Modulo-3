@@ -29,7 +29,8 @@ export function CreateProjectForm(props: Props) {
             finishDate: new Date(formData.get("date") as string),
             cost : 0,
             progress: 0,
-            toDoList: []
+            toDosManager: {toDosList:[]}
+            
         }
         try {
             console.log(newProjectData)

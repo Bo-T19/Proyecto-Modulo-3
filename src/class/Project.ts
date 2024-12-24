@@ -5,7 +5,7 @@ export type UserRole = "Architect" | "Engineer" | "Developer"
 import { v4 as uuidv4 } from 'uuid'
 
 import { ToDo } from './ToDo'
-import { ToDosManager } from './ToDosManager'
+import { IToDosManager, ToDosManager } from './ToDosManager'
 
 //Project interface
 export interface IProject {
@@ -16,6 +16,7 @@ export interface IProject {
     finishDate: Date
     cost: number
     progress: number
+    toDosManager: IToDosManager
 }
 
 //Class

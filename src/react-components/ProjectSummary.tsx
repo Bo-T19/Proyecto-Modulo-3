@@ -29,7 +29,9 @@ export function ProjectSummary(props: Props) {
                     backgroundColor: `${props.project.color}`,
                     aspectRatio: 1,
                     borderRadius: "100%",
-                    padding: 12
+                    padding: 12,
+                    display: "flex",
+                    alignItems: "center"
                 }}
             >
                 {props.project.initials}

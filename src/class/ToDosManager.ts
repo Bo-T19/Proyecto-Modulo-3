@@ -1,11 +1,16 @@
 import { IToDo, ToDo, TaskStatus } from './ToDo'
 
+export interface IToDosManager{
+    toDosList: ToDo[] 
+}
 
 export class ToDosManager {
 
-    //Class internals
-     toDosList: ToDo[] = []
+    //To Satisfy IToDosManager
+    toDosList: ToDo[] = []
 
+
+    //Class internals
     onToDoCreated = () => {}
     onToDoEdited = () => {}
 
