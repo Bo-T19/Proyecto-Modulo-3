@@ -1,4 +1,4 @@
-import { IProject, Project, ProjectStatus, UserRole } from "./Project"
+import { IProject, Project, ProjectStatus, ProjectType } from "./Project"
 
 //Class
 export class ProjectsManager {
@@ -43,7 +43,7 @@ export class ProjectsManager {
             name: "Default Project",
             description: "A temporary project",
             status: "Active",
-            userRole: "Architect",
+            projectType: "Architect",
             finishDate: new Date("2024-12-31"),
             cost: 15000,
             progress: 75,
@@ -132,7 +132,7 @@ export class ProjectsManager {
                         const updateProjectData: IProject =
                         {
                             name: project.name,
-                            userRole: project.userRole,
+                            projectType: project.projectType,
                             status: project.status,
                             description: project.description,
                             finishDate: new Date(project.finishDate),
@@ -153,7 +153,7 @@ export class ProjectsManager {
                         const newProjectData: IProject =
                         {
                             name: project.name,
-                            userRole: project.userRole,
+                            projectType: project.projectType,
                             status: project.status,
                             description: project.description,
                             finishDate: new Date(project.finishDate),

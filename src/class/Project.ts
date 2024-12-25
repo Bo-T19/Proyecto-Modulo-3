@@ -1,10 +1,10 @@
-//Create the ProjectStatus and the UserRole types
+//Create the ProjectStatus and the ProjectType types
 export type ProjectStatus = "Pending" | "Active" | "Finished"
-export type UserRole = "Architect" | "Engineer" | "Developer"
+export type ProjectType = "Infrastructure" | "Housing" | "Private sector"
 
 import { v4 as uuidv4 } from 'uuid'
 
-import { ToDo } from './ToDo'
+
 import { IToDosManager, ToDosManager } from './ToDosManager'
 
 //Project interface
@@ -12,7 +12,7 @@ export interface IProject {
     name: string
     description: string
     status: ProjectStatus
-    userRole: UserRole
+    projectType: ProjectType
     finishDate: Date
     cost: number
     progress: number
@@ -26,7 +26,7 @@ export class Project implements IProject {
     name: string
     description: string
     status: ProjectStatus
-    userRole: UserRole
+    projectType: ProjectType
     finishDate: Date
     cost: number = 0
     progress: number = 0

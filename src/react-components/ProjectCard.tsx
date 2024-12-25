@@ -39,7 +39,7 @@ export function ProjectCard(props: Props) {
                 <div className="card-property">
                     <p style={{ color: "#969696" }}>Role</p>
                     <p>
-                        {props.project.userRole}
+                        {props.project.projectType}
                     </p>
                 </div>
                 <div className="card-property">

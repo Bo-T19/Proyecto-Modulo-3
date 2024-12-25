@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IProject, Project, ProjectStatus, UserRole } from "../class/Project";
+import { IProject, Project, ProjectStatus, ProjectType } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 
 
@@ -25,7 +25,7 @@ export function CreateProjectForm(props: Props) {
             name: formData.get("name") as string,
             description: formData.get("description") as string,
             status: formData.get("status") as ProjectStatus,
-            userRole: formData.get("role") as UserRole,
+            projectType: formData.get("role") as ProjectType,
             finishDate: new Date(formData.get("date") as string),
             cost : 0,
             progress: 0,

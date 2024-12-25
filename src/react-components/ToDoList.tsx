@@ -20,7 +20,6 @@ export function ToDoList(props: Props) {
 
     props.project.toDosManager.onToDoCreated = () => {
         setToDosList([...props.project.toDosManager.toDosList])
-        console.log(toDosList)
     }
 
     props.project.toDosManager.onToDoEdited = () => {

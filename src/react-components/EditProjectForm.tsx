@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
 
-import { Project, IProject, ProjectStatus, UserRole } from "../class/Project";
+import { Project, IProject, ProjectStatus, ProjectType } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 
 interface Props {
@@ -31,7 +31,7 @@ export function EditProjectForm(props: Props) {
             name: formData.get("name") as string,
             description: formData.get("description") as string,
             status: formData.get("status") as ProjectStatus,
-            userRole: formData.get("role") as UserRole,
+            projectType: formData.get("role") as ProjectType,
             finishDate: new Date(formData.get("date") as string),
             cost: formData.get("cost") as unknown as number,
             progress: formData.get("progress") as unknown as number,
