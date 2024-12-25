@@ -1,4 +1,4 @@
-import { IProject, Project, ProjectStatus, ProjectType } from "./Project"
+import { IProject, Project } from "./Project"
 
 //Class
 export class ProjectsManager {
@@ -43,7 +43,7 @@ export class ProjectsManager {
             name: "Default Project",
             description: "A temporary project",
             status: "Active",
-            projectType: "Architect",
+            projectType: "Private sector",
             finishDate: new Date("2024-12-31"),
             cost: 15000,
             progress: 75,

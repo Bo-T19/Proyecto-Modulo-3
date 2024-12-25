@@ -52,7 +52,6 @@ export function ProjectDetailsPage(props: Props) {
     //NewToDoForm
     const handleCloseNewToDoForm = () => {
         setNewToDoForm(false);
-        console.log(project)
     };
 
 
