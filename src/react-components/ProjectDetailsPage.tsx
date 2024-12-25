@@ -18,7 +18,7 @@ export function ProjectDetailsPage(props: Props) {
     const routeParams = Router.useParams<{ id: string }>()
     if (!routeParams.id) { return (<p> There is no project id</p>) }
     const project = props.projectsManager.getProject(routeParams.id)
-    if (!project) { return (<p> Project couldn't be fount</p>) }
+    if (!project) { return (<p> Project couldn't be found</p>) }
 
     //State for the EditProjectForm and methods for showing it, also for NewToDoForm and EditToDoForm
     const [showEditProjectForm, setEditProjectForm] = React.useState(false);
