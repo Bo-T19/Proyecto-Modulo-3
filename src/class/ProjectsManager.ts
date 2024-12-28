@@ -1,4 +1,6 @@
+import { updateDocument } from "../firebase"
 import { IProject, Project } from "./Project"
+import { ToDosManager } from "./ToDosManager"
 
 //Class
 export class ProjectsManager {
@@ -99,9 +101,15 @@ export class ProjectsManager {
             if (project.hasOwnProperty(key) && completeData[key]) {
                 project[key] = completeData[key];
             }
+            else{
+                completeData[key] = project[key]
+            }
         }
 
-        
+        completeData.finishDate = new Date(completeData.finishDate);
+        completeData.toDosManager = ToDosManager.toPlainObject(completeData.toDosManager)
+        console.log(project.id)
+        updateDocument("/projects", project.id, completeData);
     }
 
     //Import a project from JSON or export a project from JSON

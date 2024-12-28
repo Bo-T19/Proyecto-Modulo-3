@@ -81,7 +81,7 @@ export function ProjectsPage(props: Props) {
 
 
     //Firebase
-    const projectsCollection = getCollection<IProject>("/projects>")
+    const projectsCollection = getCollection<IProject>("/projects")
     React.useEffect(() => {
         Firestore.collection(firebaseDB, "/projects")
     }, [])

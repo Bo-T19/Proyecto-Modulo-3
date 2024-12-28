@@ -3,6 +3,7 @@ import * as Firestore from "firebase/firestore"
 import { firebaseDB, getCollection } from "../firebase"
 import { IProject, Project, ProjectStatus, ProjectType } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
+import { ToDosManager } from "../class/ToDosManager";
 
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 export function CreateProjectForm(props: Props) {
 
     
-    const projectsCollection = getCollection<IProject>("/projects>")
+    const projectsCollection = getCollection<IProject>("/projects")
 
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -36,8 +37,8 @@ export function CreateProjectForm(props: Props) {
         }
         try {
             console.log(newProjectData)
-            Firestore.addDoc(projectsCollection, newProjectData)
             const newProject = props.projectsManager.newProject(newProjectData)
+            newProjectData.toDosManager = ToDosManager.toPlainObject(newProjectData.toDosManager)
             projectForm.reset()
             const modal = document.getElementById("new-project-modal")
             if (!(modal && modal instanceof HTMLDialogElement)) { return }

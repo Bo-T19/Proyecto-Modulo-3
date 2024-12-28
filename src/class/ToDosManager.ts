@@ -11,9 +11,14 @@ export class ToDosManager {
 
 
     //Class internals
+    projectId: string
     onToDoCreated = () => {}
     onToDoEdited = () => {}
 
+
+    constructor(data?: Partial<ToDosManager>) {
+        this.toDosList = data?.toDosList || [];
+    }
 
     addToDo(data: IToDo) {
 
@@ -56,6 +61,18 @@ export class ToDosManager {
         task.setColor()
         this.onToDoEdited()
     
+    }
+
+    //Serealize
+    static toPlainObject(toDosManager: IToDosManager): IToDosManager {
+        return {
+            toDosList: toDosManager.toDosList,
+        };
+    }
+
+    // Rebuild
+    static fromData(data: any): ToDosManager {
+        return new ToDosManager(data);
     }
 
 }
