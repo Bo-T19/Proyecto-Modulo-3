@@ -5,6 +5,8 @@ export class ProjectsManager {
 
     list: Project[] = []
 
+    colorArray: string[] = ["#FF6F61", "#6A5ACD", "#FFB347", "#3498DB", "#27AE60", "#C0392B"]
+
     onProjectCreated = (project: Project) => { }
 
     onProjectDeleted = (id) => { }
@@ -29,6 +31,7 @@ export class ProjectsManager {
 
         const project = new Project(data, id)
         project.toDosManager.toDosList = data.toDosManager.toDosList
+        project.color = this.colorArray[ Math.floor(Math.random() * 6)]
         this.list.push(project)
         this.projectNames.push(project.name)
         this.onProjectCreated(project)
