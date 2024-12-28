@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as Router from "react-router-dom";
+import * as Firestore from "firebase/firestore"
 
-import { Project } from "../class/Project";
+import { Project, IProject } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 import { ProjectCard } from "./ProjectCard"
 import { CreateProjectForm } from "./CreateProjectForm";
 import { SearchBox } from "./SearchBox";
+import { firebaseDB, getCollection } from "../firebase"
 
 interface Props {
     projectsManager: ProjectsManager
@@ -76,6 +78,37 @@ export function ProjectsPage(props: Props) {
         })
         setProjects(filteredProjects)
     }
+
+
+    //Firebase
+    const projectsCollection = getCollection<IProject>("/projects>")
+    React.useEffect(() => {
+        Firestore.collection(firebaseDB, "/projects")
+    }, [])
+
+
+    const getFirestoreProjects = async () => {
+        const firebaseProjects = await Firestore.getDocs(projectsCollection)
+        for (const doc of firebaseProjects.docs) {
+            const data = doc.data()
+            const project: IProject = {
+                ...data,
+                finishDate: (data.finishDate as unknown as Firestore.Timestamp).toDate()
+            }
+
+            try {
+                props.projectsManager.newProject(project, doc.id)
+            }
+            catch (error) {
+                //Método para actualizar los datos del proyecto
+            }
+        }
+    }
+
+    React.useEffect(() => {
+        getFirestoreProjects()
+    }, [])
+
 
 
     return (

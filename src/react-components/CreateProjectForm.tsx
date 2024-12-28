@@ -1,4 +1,6 @@
 import * as React from "react";
+import * as Firestore from "firebase/firestore"
+import { firebaseDB, getCollection } from "../firebase"
 import { IProject, Project, ProjectStatus, ProjectType } from "../class/Project";
 import { ProjectsManager } from "../class/ProjectsManager";
 
@@ -11,7 +13,7 @@ interface Props {
 export function CreateProjectForm(props: Props) {
 
     
-
+    const projectsCollection = getCollection<IProject>("/projects>")
 
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -34,6 +36,7 @@ export function CreateProjectForm(props: Props) {
         }
         try {
             console.log(newProjectData)
+            Firestore.addDoc(projectsCollection, newProjectData)
             const newProject = props.projectsManager.newProject(newProjectData)
             projectForm.reset()
             const modal = document.getElementById("new-project-modal")
@@ -95,12 +98,12 @@ export function CreateProjectForm(props: Props) {
                     </div>
                     <div className="form-field-container">
                         <label>
-                            <span className="material-icons-round">person</span>Role
+                            <span className="material-icons-round">person</span>Type
                         </label>
                         <select name="role">
-                            <option>Architect</option>
-                            <option>Engineer</option>
-                            <option>Developer</option>
+                            <option>Infrastructure</option>
+                            <option>Housing</option>
+                            <option>Private sector</option>
                         </select>
                     </div>
                     <div className="form-field-container">
