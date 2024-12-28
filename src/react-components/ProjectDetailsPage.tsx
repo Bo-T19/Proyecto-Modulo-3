@@ -8,6 +8,7 @@ import { ToDoList } from "./ToDoList";
 import { NewToDoForm } from "./NewToDoForm";
 import { EditToDoForm } from "./EditToDoForm"
 import { ThreeViewer } from "./ThreeViewer";
+import { deleteDocument } from "../firebase";
 
 interface Props {
     projectsManager: ProjectsManager
@@ -97,6 +98,16 @@ export function ProjectDetailsPage(props: Props) {
         setActiveTaskId(id)
     }
 
+
+    //Firebase
+
+    const navigateTo = Router.useNavigate()
+    props.projectsManager.onProjectDeleted = async (id) => {
+        await deleteDocument("/projects", id )
+        navigateTo("/")
+    }
+
+    
     return (
         <div className="page" id="project-details" >
             <header>
