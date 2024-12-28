@@ -31,7 +31,7 @@
   height: 100vh;
   background-color: var(--background);
   color: #fff;
-
+  text-decoration: none;
 }
 
 #nav-buttons a {
@@ -283,3 +283,6 @@ select:focus {
   outline: none;
 }
 
+a {
+  text-decoration: none;
+}

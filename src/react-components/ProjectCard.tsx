@@ -31,7 +31,7 @@ export function ProjectCard(props: Props) {
             </div>
             <div className="card-content">
                 <div className="card-property">
-                    <p style={{ color: "#969696" }}>Status</p>
+                    <p style={{ color: "#969696"}}>Status</p>
                     <p>
                         {props.project.status}
                     </p>
