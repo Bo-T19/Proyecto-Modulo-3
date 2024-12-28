@@ -82,7 +82,7 @@ export function ThreeViewer() {
         grid.material.color = new THREE.Color("#808080")
         scene.add(grid)
 
-        const gui = new GUI()
+        const gui = new GUI({container: viewerContainer})
 
         const cubeControls = gui.addFolder("Cube")
 
@@ -135,7 +135,7 @@ export function ThreeViewer() {
 
     return (<div
         id="viewer-container"
-        style={{ minWidth: 0 }}
+        style={{ minWidth: 0, position: "relative" }}
         className="dashboard-card"
     />)
 }
