@@ -1,6 +1,8 @@
 import * as React from "react";
 import { IUser, User } from "../class/User";
 import { UsersManager } from "../class/UsersManager";
+import { getCollection } from "../firebase";
+import * as Firestore from "firebase/firestore"
 
 interface Props {
     usersManager: UsersManager;
@@ -32,6 +34,8 @@ export function CreateUserForm(props: Props) {
         try {
 
             const newUser = props.usersManager.newUser(newUserData)
+            const projectsCollection = getCollection<IUser>("/users")
+            Firestore.addDoc(projectsCollection, newUserData)
             userForm.reset()
             const modal = document.getElementById("new-user-modal")
             if (!(modal && modal instanceof HTMLDialogElement)) { return }
