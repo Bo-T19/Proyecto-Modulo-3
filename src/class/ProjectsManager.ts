@@ -1,6 +1,8 @@
 import { updateDocument } from "../firebase"
 import { IProject, Project } from "./Project"
 import { ToDosManager } from "./ToDosManager"
+import * as Firestore from "firebase/firestore"
+import { firebaseDB, getCollection } from "../firebase"
 
 //Class
 export class ProjectsManager {
@@ -94,7 +96,7 @@ export class ProjectsManager {
             else if (completeData.name.length < 5) {
                 throw new Error(`The name must have at least 5 characters`)
             }
-            else{
+            else {
                 const index = this.projectNames.indexOf(project.name);
                 this.projectNames[index] = completeData.name
                 console.log(this.projectNames)
@@ -127,7 +129,7 @@ export class ProjectsManager {
             cost: completeData.cost,
             progress: completeData.progress
         });
-        
+
         console.log(this)
     }
 
@@ -145,11 +147,12 @@ export class ProjectsManager {
     }
 
     importFromJSON() {
+        const projectsCollection = getCollection<IProject>("/projects")
         const input = document.createElement('input')
         input.type = 'file'
         input.accept = 'application/json'
         const reader = new FileReader()
-        reader.addEventListener("load", () => {
+        reader.addEventListener("load", async () => {
             const json = reader.result
             if (!json) { return }
             const projects: IProject[] = JSON.parse(json as string)
@@ -192,9 +195,19 @@ export class ProjectsManager {
                             toDosManager: project.toDosManager
                         }
 
-                        this.newProject(newProjectData)
-                    } catch (error) {
+                        
 
+                        if (isNaN(newProjectData.finishDate.getDate())) {
+                            newProjectData.finishDate = new Date(2024, 1, 1)
+                        }
+
+                        const newProjectDataForFB = structuredClone(newProjectData)
+
+                        const docRef = await Firestore.addDoc(projectsCollection, newProjectDataForFB)
+                        this.newProject(newProjectData)
+
+                    } catch (error) {
+                        console.log(error)
                     }
                 }
             }

@@ -19,7 +19,7 @@ export function ProjectsPage(props: Props) {
     //States
     const [projects, setProjects] = React.useState<Project[]>(props.projectsManager.list)
     const [showProjectForm, setShowProjectForm] = React.useState(false);
-
+    const [isLoading, setIsLoading] = React.useState(true);
 
     props.projectsManager.onProjectCreated = () => {
         setProjects([...props.projectsManager.list])
@@ -90,7 +90,7 @@ export function ProjectsPage(props: Props) {
 
 
     const getFirestoreProjects = async () => {
-        //props.projectsManager.list.length=0
+        setIsLoading(true);
 
         const firebaseProjects = await Firestore.getDocs(projectsCollection)
         for (const doc of firebaseProjects.docs) {
@@ -106,9 +106,10 @@ export function ProjectsPage(props: Props) {
                 console.log(props.projectsManager)
             }
             catch (error) {
-                //Método para actualizar los datos del proyecto
             }
         }
+
+        setIsLoading(false);
     }
 
     React.useEffect(() => {
@@ -145,15 +146,25 @@ export function ProjectsPage(props: Props) {
                 </div>
             </header>
             {showProjectForm ? <CreateProjectForm projectsManager={props.projectsManager} onCloseForm={handleCloseForm} /> : <></>}
-            {projects.length > 0 ? <div id="projects-list" style={{
-                flexGrow: 1,
-                overflowY: "auto",
-                padding: "20px 40px",
-                display: "grid",
-                gap: "30px",
-                gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
-            }}>{projectCards}</div> : <p> There are no projects to display</p>}
-
+            {isLoading ? (
+                <p>Loading projects...</p>
+            ) : projects.length > 0 ? (
+                <div
+                    id="projects-list"
+                    style={{
+                        flexGrow: 1,
+                        overflowY: "auto",
+                        padding: "20px 40px",
+                        display: "grid",
+                        gap: "30px",
+                        gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
+                    }}
+                >
+                    {projectCards}
+                </div>
+            ) : (
+                <p>There are no projects to display</p>
+            )}
         </div>
 
     )
