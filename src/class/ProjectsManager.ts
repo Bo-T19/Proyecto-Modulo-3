@@ -31,9 +31,10 @@ export class ProjectsManager {
             data.finishDate = new Date(2024, 1, 1)
         }
 
+
         const project = new Project(data, id)
         project.toDosManager.toDosList = data.toDosManager.toDosList
-        project.color = this.colorArray[ Math.floor(Math.random() * 6)]
+        project.color = this.colorArray[Math.floor(Math.random() * 6)]
         this.list.push(project)
         this.projectNames.push(project.name)
         this.onProjectCreated(project)
@@ -52,8 +53,8 @@ export class ProjectsManager {
             finishDate: new Date("2024-12-31"),
             cost: 15000,
             progress: 75,
-            toDosManager: {toDosList:[]}
-           
+            toDosManager: { toDosList: [] }
+
         }
 
         this.newProject(defaultData)
@@ -74,12 +75,12 @@ export class ProjectsManager {
             ...project.toDosManager.toDosList,
             ...completeData.toDosManager.toDosList
         ];
-        
+
         //Remove Duplicates based on the Id
         completeData.toDosManager.toDosList = Array.from(
             new Map(completeData.toDosManager.toDosList.map(obj => [obj.id, obj])).values()
         );
- 
+
         const projectNames = this.list.map((project) => {
             return project.name
         })
@@ -90,26 +91,44 @@ export class ProjectsManager {
             if (nameInUse && completeData.name !== project.name) {
                 throw new Error(`A project with name "${completeData.name}" already exists`)
             }
-
-            if (completeData.name.length < 5) {
+            else if (completeData.name.length < 5) {
                 throw new Error(`The name must have at least 5 characters`)
+            }
+            else{
+                const index = this.projectNames.indexOf(project.name);
+                this.projectNames[index] = completeData.name
+                console.log(this.projectNames)
             }
         }
 
+
+        completeData.finishDate = new Date(completeData.finishDate)
+        if (isNaN(completeData.finishDate.getTime())) {
+            completeData.finishDate = project.finishDate
+        }
 
         for (const key in completeData) {
             if (project.hasOwnProperty(key) && completeData[key]) {
                 project[key] = completeData[key];
             }
-            else{
+            else {
                 completeData[key] = project[key]
             }
         }
 
-        completeData.finishDate = new Date(completeData.finishDate);
-        completeData.toDosManager = ToDosManager.toPlainObject(completeData.toDosManager)
-        console.log(project.id)
-        updateDocument("/projects", project.id, completeData);
+
+
+        updateDocument("/projects", project.id, {
+            name: completeData.name,
+            description: completeData.description,
+            projectType: completeData.projectType,
+            status: completeData.status,
+            finishDate: completeData.finishDate,
+            cost: completeData.cost,
+            progress: completeData.progress
+        });
+        
+        console.log(this)
     }
 
     //Import a project from JSON or export a project from JSON
@@ -149,8 +168,8 @@ export class ProjectsManager {
                             finishDate: new Date(project.finishDate),
                             cost: project.cost,
                             progress: project.progress,
-                            toDosManager : project.toDosManager
-                            
+                            toDosManager: project.toDosManager
+
                         }
 
                         this.editProject(this.getProjectByName(project.name)!, updateProjectData)
@@ -171,8 +190,8 @@ export class ProjectsManager {
                             cost: project.cost,
                             progress: project.progress,
                             toDosManager: project.toDosManager
-                            
                         }
+
                         this.newProject(newProjectData)
                     } catch (error) {
 

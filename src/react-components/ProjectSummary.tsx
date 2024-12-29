@@ -69,7 +69,7 @@ export function ProjectSummary(props: Props) {
                 </div>
                 <div>
                     <p style={{ color: "#969696", fontSize: "var(--font-sm)" }}>
-                        Role
+                        Type
                     </p>
                     <p data-project-info="role"> {props.project.projectType}</p>
                 </div>

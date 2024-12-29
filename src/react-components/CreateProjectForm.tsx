@@ -16,7 +16,7 @@ export function CreateProjectForm(props: Props) {
     
     const projectsCollection = getCollection<IProject>("/projects")
 
-    const onFormSubmit = (e: React.FormEvent) => {
+    const onFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         const projectForm = document.getElementById("new-project-form")
         if (!(projectForm && projectForm instanceof HTMLFormElement)) { return }
@@ -28,7 +28,7 @@ export function CreateProjectForm(props: Props) {
             name: formData.get("name") as string,
             description: formData.get("description") as string,
             status: formData.get("status") as ProjectStatus,
-            projectType: formData.get("role") as ProjectType,
+            projectType: formData.get("type") as ProjectType,
             finishDate: new Date(formData.get("date") as string),
             cost : 0,
             progress: 0,
@@ -37,8 +37,17 @@ export function CreateProjectForm(props: Props) {
         }
         try {
             console.log(newProjectData)
-            const newProject = props.projectsManager.newProject(newProjectData)
-            newProjectData.toDosManager = ToDosManager.toPlainObject(newProjectData.toDosManager)
+            if  (isNaN(newProjectData.finishDate.getDate()))
+            {
+                newProjectData.finishDate = new Date(2024, 1, 1)
+            }
+
+            const newProjectDataForFB = structuredClone(newProjectData)
+           
+            const docRef = await Firestore.addDoc(projectsCollection, newProjectDataForFB)
+
+            const newProject = props.projectsManager.newProject(newProjectData, docRef.id)
+
             projectForm.reset()
             const modal = document.getElementById("new-project-modal")
             if (!(modal && modal instanceof HTMLDialogElement)) { return }
@@ -101,7 +110,7 @@ export function CreateProjectForm(props: Props) {
                         <label>
                             <span className="material-icons-round">person</span>Type
                         </label>
-                        <select name="role">
+                        <select name="type">
                             <option>Infrastructure</option>
                             <option>Housing</option>
                             <option>Private sector</option>

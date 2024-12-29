@@ -31,7 +31,7 @@ export function EditProjectForm(props: Props) {
             name: formData.get("name") as string,
             description: formData.get("description") as string,
             status: formData.get("status") as ProjectStatus,
-            projectType: formData.get("role") as ProjectType,
+            projectType: formData.get("type") as ProjectType,
             finishDate: new Date(formData.get("date") as string),
             cost: formData.get("cost") as unknown as number,
             progress: formData.get("progress") as unknown as number,
@@ -74,6 +74,7 @@ export function EditProjectForm(props: Props) {
                             name="name"
                             type="text"
                             placeholder="What's the name of your project?"
+                            defaultValue={props.project.name}
                         />
                         <p
                             style={{
@@ -95,17 +96,17 @@ export function EditProjectForm(props: Props) {
                             cols={30}
                             rows={5}
                             placeholder="Give your project a nice description! So people is jealous about it."
-                            defaultValue={""}
+                            defaultValue={props.project.description}
                         />
                     </div>
                     <div className="form-field-container">
                         <label>
-                            <span className="material-icons-round">person</span>Role
+                            <span className="material-icons-round">person</span>Type
                         </label>
-                        <select name="role">
-                            <option>Architect</option>
-                            <option>Engineer</option>
-                            <option>Developer</option>
+                        <select name="type" defaultValue={props.project.projectType}>
+                            <option>Infrastructure</option>
+                            <option>Housing</option>
+                            <option>Private sector</option>
                         </select>
                     </div>
                     <div className="form-field-container">
@@ -113,7 +114,7 @@ export function EditProjectForm(props: Props) {
                             <span className="material-icons-round">not_listed_location</span>
                             Status
                         </label>
-                        <select name="status">
+                        <select name="status" defaultValue={props.project.status}>
                             <option>Pending</option>
                             <option>Active</option>
                             <option>Finished</option>
@@ -135,7 +136,7 @@ export function EditProjectForm(props: Props) {
                             cols={30}
                             rows={1}
                             placeholder="Enter just an integer number, no more."
-                            defaultValue={""}
+                            defaultValue={props.project.cost}
                         />
                     </div>
                     <div className="form-field-container">
@@ -147,7 +148,7 @@ export function EditProjectForm(props: Props) {
                             cols={30}
                             rows={1}
                             placeholder="Enter just an integer number from 0 to 100, no more."
-                            defaultValue={""}
+                            defaultValue={props.project.progress}
                         />
                     </div>
                     <div

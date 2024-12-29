@@ -1,7 +1,8 @@
 import { IToDo, ToDo, TaskStatus } from './ToDo'
+import { updateDocument } from "../firebase"
 
-export interface IToDosManager{
-    toDosList: ToDo[] 
+export interface IToDosManager {
+    toDosList: ToDo[]
 }
 
 export class ToDosManager {
@@ -12,12 +13,13 @@ export class ToDosManager {
 
     //Class internals
     projectId: string
-    onToDoCreated = () => {}
-    onToDoEdited = () => {}
+    onToDoCreated = () => { }
+    onToDoEdited = () => { }
 
 
-    constructor(data?: Partial<ToDosManager>) {
+    constructor(id: string, data?: Partial<ToDosManager>) {
         this.toDosList = data?.toDosList || [];
+        this.projectId = id
     }
 
     addToDo(data: IToDo) {
@@ -32,6 +34,9 @@ export class ToDosManager {
 
         this.toDosList.push(toDo)
         this.onToDoCreated()
+
+        const staticToDosManager = ToDosManager.toPlainObject(this)
+        updateDocument("/projects", this.projectId, { toDosManager: staticToDosManager });
     }
 
 
@@ -60,21 +65,32 @@ export class ToDosManager {
         }
         task.setColor()
         this.onToDoEdited()
-    
+        const staticToDosManager = ToDosManager.toPlainObject(this)
+        updateDocument("/projects", this.projectId, { toDosManager: staticToDosManager });
+
     }
 
-    //Serealize
-    static toPlainObject(toDosManager: IToDosManager): IToDosManager {
+
+    //To PlainObject
+    static toPlainObject(toDosManager: ToDosManager): Record<string, any> {
         return {
-            toDosList: toDosManager.toDosList,
+            toDosList: toDosManager.toDosList.map(toDo => toDo.toPlainObject()),
         };
     }
 
     // Rebuild
-    static fromData(data: any): ToDosManager {
-        return new ToDosManager(data);
-    }
+    static fromData(id: string, data: any): ToDosManager {
+        const toDosList = (data.toDosList || []).map((toDoData: any) => {
 
+            return new ToDo({
+                description: toDoData.description,
+                status: toDoData.status as TaskStatus,
+                date: new Date(toDoData.date), 
+            });
+        });
+    
+        return new ToDosManager(id, { toDosList });
+    }
 }
 
 

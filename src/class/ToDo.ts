@@ -49,4 +49,15 @@ export class ToDo {
         }
     }
 
+
+    toPlainObject(): Record<string, any> {
+        return {
+            description: this.description,
+            status: this.status,
+            date: this.date.toISOString(), 
+            color: this.color,
+            id: this.id,
+        };
+    }
+
 }
