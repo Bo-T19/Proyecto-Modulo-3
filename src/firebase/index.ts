@@ -8,13 +8,14 @@ import * as Firestore from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCFmLzaIgRzm_Gu35ilA3IIhcAifprKplY",
-    authDomain: "bim-webapp.firebaseapp.com",
-    projectId: "bim-webapp",
-    storageBucket: "bim-webapp.firebasestorage.app",
-    messagingSenderId: "443452484329",
-    appId: "1:443452484329:web:7666ebfecf3c185a771e78"
+    apiKey: "AIzaSyDaw_QI2lHm1CJMETsXZyidlMq2QRTExPQ",
+    authDomain: "bim-module3.firebaseapp.com",
+    projectId: "bim-module3",
+    storageBucket: "bim-module3.firebasestorage.app",
+    messagingSenderId: "414829144727",
+    appId: "1:414829144727:web:6a5a7040caceb1ac0517d2"
   };
+  
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
